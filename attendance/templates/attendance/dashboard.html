@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+
+<div class="container mt-4">
+    <h2 class="mb-4">Attendance Records</h2>
+    <table class="table table-bordered table-hover">
+        <thead class="table-dark">
+            <tr>
+                <th>Date</th>
+                <th>Timestamp</th>
+                <th>Authentication Method</th>
+                <th>Status</th> <!-- New Column for Status -->
+            </tr>
+        </thead>
+        <tbody>
+            {% for record in attendance_records %}
+            <tr>
+                <td>{{ record.date }}</td>
+                <td>{{ record.timestamp }}</td>
+                <td>{{ record.authentication_method }}</td>
+                <td>
+                    {% if record.status == 'P' %}
+                        <span class="badge bg-warning text-dark">Pending</span>
+                    {% elif record.status == 'V' %}
+                        <span class="badge bg-success">Verified</span>
+                    {% endif %}
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="4" class="text-center">No attendance records available.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
